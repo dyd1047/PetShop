@@ -15,7 +15,7 @@ public class MybatisOrderSummaryDAO implements OrderSummaryDAO{
 	public void insert(OrderSummary orderSummary) throws OrderSummaryRegistException{
 		int result=sqlSessionTemplate.insert("OrderSummary.insert", orderSummary);
 		if(result==0) {
-			throw new OrderSummaryRegistException("Ï£ºÎ¨∏?öî?ïΩ ?ì±Î°ùÏã§?å®");
+			throw new OrderSummaryRegistException("¡÷πÆø‰æ‡ µÓ∑œΩ«∆–");
 		}
 	}
 	

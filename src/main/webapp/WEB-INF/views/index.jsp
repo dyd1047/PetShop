@@ -13,10 +13,13 @@ List<Product> hitList =(List)request.getAttribute("hitList");
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fashi | Template</title>
 
    <%@ include file="./shop/inc/header.jsp" %>
 </head>
+<script>
+
+
+</script>
 
 
 <body>
@@ -130,7 +133,7 @@ List<Product> hitList =(List)request.getAttribute("hitList");
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="quick-view"><a href="/shop/product/detail?product_id=<%=product.getProduct_id()%>">+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
@@ -156,7 +159,7 @@ List<Product> hitList =(List)request.getAttribute("hitList");
     </section>
     <!-- Women Banner Section End -->
 
-	<!-- Instagram Section Begin -->
+   <!-- Instagram Section Begin -->
     <div class="instagram-photo">
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-7.jpg">
             <div class="inside-text">
@@ -167,7 +170,7 @@ List<Product> hitList =(List)request.getAttribute("hitList");
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-8.jpg">
             <div class="inside-text">
                 <i class="ti-instagram"></i>
-                <h5><a href="#">colorlib_Collection</a></h5>
+                <h5><a href="https://www.instagram.com/skuukzky/?hl=ko">colorlib_Collection</a></h5>
             </div>
         </div>
         <div class="insta-item set-bg" data-setbg="/resources/img/insta-9.jpg">

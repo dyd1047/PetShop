@@ -3,31 +3,42 @@
 <%@page import="com.koreait.petshop.model.domain.Product"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%
-	Product product = (Product)request.getAttribute("product");
+   Product product = (Product)request.getAttribute("product");
 %>
 <!DOCTYPE html>
 <html lang="zxx">
 <script type="text/javascript">
 //비동기 방식으로 장바구니에 담자!!
+
+//비동기 방식으로 장바구니에 담자!!
 function addCart(){
-	var formData=$("#cart_form").serialize();//파라미터를 전송할 수 있는 상태의 문자열로 나열해줌
-	
-	$.ajax({
-		url:"/async/shop/cart/regist",
-		type:"post", 
-		data:formData,
-		success:function(responseData){
-			if(responseData.resultCode==1){
-				if(confirm(responseData.msg+"\n장바구니에 담긴 상품을 보러갈까요?")){
-					location.href=responseData.url;							
-				}
-			}else{
-				alert(responseData.msg);
-			}
-		}
-	});
+   var formData=$("#cart_form").serialize();//파라미터를 전송할 수 있는 상태의 문자열로 나열해줌
+   
+   $.ajax({
+      url:"/async/shop/cart/regist",
+      type:"post", 
+      data:formData,
+      async:false,
+      success:function(responseData){
+         var json = responseData;
+         if(responseData != null){
+            console.log("진입했어요"+json);
+            if(confirm("상품이 담겼습니다!\n장바구니에 담긴 상품을 보러갈까요?")){
+               location.href="/shop/cart/list";                     
+            }
+         }
+      }
+   });
 }
 </script>
+
+<style>
+
+   #can{
+      color:red;
+      font-weight: bold;
+   }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Fashi Template">
@@ -35,11 +46,11 @@ function addCart(){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fashi | Template</title>
-	<%@ include file="../inc/header.jsp" %>
+   <%@ include file="../inc/header.jsp" %>
 </head>
 
 <body>
-	<%@ include file="../inc/top.jsp" %>
+   <%@ include file="../inc/top.jsp" %>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -59,25 +70,12 @@ function addCart(){
         </div>
     </div>
     <!-- Breadcrumb Section Begin -->
-	<!-- Product Shop Section Begin -->
+   <!-- Product Shop Section Begin -->
     <section class="product-shop spad page-details">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                	<h1>죄</h1>
-                	<h1>송</h1>
-                	<h1>합</h1>
-                	<h1>니</h1>
-                	<h1>다</h1>
-                	<h1><br></h1>
-                	<h1>채</h1>
-                	<h1>울</h1>
-                	<h1>게</h1>
-                	<h1>없</h1>
-                	<h1>어</h1>
-                	<h1>요</h1>
-                </div>
-                <div class="col-lg-9">
+
+                <div class="col-lg-13">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="product-pic-zoom">
@@ -86,19 +84,12 @@ function addCart(){
                                     <i class="fa fa-search-plus"></i>
                                 </div>
                             </div>
-                            <div class="product-thumbs">
-                                <div class="product-thumbs-track ps-slider owl-carousel">
-                                	<%for(Image image : product.getImageList()){ %>
-                                    <div class="pt active" data-imgbigurl="/resources/pro/addon/<%=image.getImage_id()%>.<%=image.getFilename()%>"><img
-                                            src="/resources/pro/addon/<%=image.getImage_id()%>.<%=image.getFilename()%>" alt=""></div>
-                                    <%} %>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-lg-6">
                             <div class="product-details">
                                 <div class="pd-title">
-                                	<!-- name -->
+                                   <!-- name -->
                                     <h3><%=product.getProduct_name() %></h3>
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
@@ -111,17 +102,22 @@ function addCart(){
                                     <span>(5)</span>
                                 </div>
                                 <div class="pd-desc">
-                                	<!-- detail -->
-                                	<div style="border: 1px solid #EEEEEE; height:650px;"><%=product.getDetail() %></div>
-                                	<!-- price -->
+                                   <!-- detail -->
+                                   <div style="border: 1px solid #EEEEEE; height:400px;"><%=product.getDetail() %></div>
+                                   <!-- price -->
                                     <h4><%=Formatter.getCurrency(product.getPrice()) %> <span><%=Formatter.getCurrency(product.getPrice()+1000000) %></span></h4>
                                 </div>
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                    <a href="/shop/product/cart" class="primary-btn pd-cart">Add To Cart</a>
-                                </div>
+                              
+                                <form id="cart_form">
+                                   <input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
+                                   <div class="quantity">
+                                       <div class="pro-qty">
+                                           <input type="number" id="qty" name="quantity" value="1">
+                                       </div>
+                                       <button type="button" class="primary-btn pd-cart" onclick="addCart()">Add To Cart</button>
+                                   </div>
+                                </form>
+                              
                             </div>
                         </div>
                     </div>
@@ -129,70 +125,77 @@ function addCart(){
                         <div class="tab-item">
                             <ul class="nav" role="tablist">
                                 <li>
-                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">상품정보</a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">취소/교환/반품 안내</a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a>
+                                    <a data-toggle="tab" href="#tab-3" role="tab">구매후기</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="tab-item-content">
                             <div class="tab-content">
-                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                             
+                               <div class="tab-pane fade-in active" id="tab-1" role="tabpanel" class="col-lg-4">
                                     <div class="product-content">
                                         <div class="row">
-                                            <div class="col-lg-7">
-                                                <h5>Introduction</h5>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                                                <h5>Features</h5>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <img src="/resources/img/product-single/tab-desc.jpg" alt="">
+                                            <div class="col-lg-12">
+                                                 <div>
+                                               <%for(Image image : product.getImageList()){ %>
+                                                   <img  src="/resources/pro/addon/<%=image.getImage_id()%>.<%=image.getFilename()%>" alt="" width="100%" height="100%">
+                                                   <%} %>
+                                            </div>       
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="tab-pane fade" id="tab-2" role="tabpanel">
                                     <div class="specification-table">
-                                        <table>
-                                            <tr>
-                                                <td class="p-catagory">Customer Rating</td>
-                                                <td>
-                                                    <div class="pd-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(5)</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Name</td>
-                                                <td>
-                                                    <div class="p-price"><%=product.getProduct_name() %></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="p-catagory">Price</td>
-                                                <td>
-                                                    <div class="p-price"><%=Formatter.getCurrency(product.getPrice()) %></div>
-                                                </td>
-                                            </tr>
-                                        </table>
+                              <a id="can">취소</a>
+                                 <ul>
+                                    <li>입금하신 상품은 '입금대기, 입금완료' 단계에서만 취소가 가능합니다.</li>
+                                    <li>전체 주문 중 일부 상품의 부분취소는 불가능합니다.</li>
+                                 </ul>   
+                              <br>
+                                 
+                              <a id="can">교환/반품</a>
+                                 <ul>
+                                    <li>교환 및 반품은 배송완료일 기준으로 7일 이내 가능합니다.</li>
+                                    <li>교환하려는 상품은 처음 배송한 택배사에서 수거하므로 다른 택배사 이용은 불가능합니다.</li>
+                                    <li>업체배송 상품은 제공 업체와 상품에 따라 배송비가 다르고, 상품의 도착지가 처음 발송한 주소와 다를 수 있으므로 고객센터(1588-2469)로 먼저 연락주시기 바랍니다.</li>
+                                 </ul>
+                                 <br>
+                                 
+                              <a id="can">교환/반품이 불가능한 경우</a>
+                                 <ul>
+                                    <li>   반품 요청기간이 지난 경우</li>
+                                    <li>   주문/제작 상품의 경우, 상품의 제작이 이미 진행된 경우</li>
+                                    <li>   상품 포장을 개봉하여 사용 또는 설치 완료되어 상품의 가치가 현저히 감소한 경우</li>
+                                    <li>   시간의 경과에 의하여 재판매가 곤란할 정도로 상품의 가치가 현저히 감소한 경우</li>
+                                    <li>   구성품을 분실하였거나 고객님의 취급 부주의로 인한 파손/고장/오염으로 재판매 불가한 경우</li>
+                                 </ul>
+                                 <br>
+                                 
+                              <a id="can">교환/반품 배송비</a>
+                                 <ul>
+                                    <li>   단순변심으로 인한 교환/반품은 고객님께서 배송비를 부담하셔야 합니다.</li>
+                                    <li>   상품의 불량 또는 파손, 오배송의 경우에는 배송비를 강아지대통령에서 부담합니다.</li>
+                                    <li>   업체배송 상품은 제공업체에 따라 교환/반품 배송비가 다를 수 있으므로 고객센터로 문의하시기 바랍니다.</li>
+                                    <li>   제주, 산간지역은 추가 배송비가 발생할 수 있습니다.</li>
+                                 </ul>
+                                 
+                                 
+                                 
+                                 
                                     </div>
                                 </div>
+                                
+                                
+                                
+                                
                                 <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                     <div class="customer-review-option">
                                         <h4>2 Comments</h4>

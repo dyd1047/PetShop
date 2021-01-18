@@ -12,7 +12,7 @@ public interface CartDAO {
 	public void duplicateCheck(Cart cart); //?¥ë°”êµ¬?‹ˆ ì¤‘ë³µ?ƒ?’ˆ ?—¬ë¶? ì²´í¬
 	public void insert(Cart cart); 
 	public void update(Cart cart);
-	public void delete(Cart cart); //pkë¥? ?´?š©?•œ ?‚­? œ
+	public void delete(int cart_id); //pkë¥? ?´?š©?•œ ?‚­? œ
 	public void delete(Member member); //?šŒ?›?— ?†?•œ ?°?´?„° ?‚­? œ?• ?˜ˆ? •
 	
 }

@@ -9,6 +9,10 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectAll">
+		
+	</select>
+	
 </mapper>
 
 

@@ -11,30 +11,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fashi | Template</title>
 
-	<%@ include file="../shop/inc/header.jsp" %>
-	
+   <%@ include file="../shop/inc/header.jsp" %>
+   
 <style>
-	#container {overflow:hidden;height:300px;position:relative; border:5px solid rgb(231,171,60); border-radius:9px; margin:20px 100px 50px 100px;}
-	#mapWrapper {width:100%;height:300px;z-index:1;}
-	#rvWrapper {width:50%;height:300px;top:0;right:0;position:absolute;z-index:0;}
-	#container.view_roadview #mapWrapper {width: 50%;}
-	#roadviewControl {position:absolute;top:5px;left:5px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
-	#roadviewControl.active {background-position:0 -350px;}
-	#close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
-	#close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}	
+   #container {overflow:hidden;height:300px;position:relative; border:5px solid rgb(231,171,60); border-radius:9px; margin:20px 100px 50px 100px;}
+   #mapWrapper {width:100%;height:300px;z-index:1;}
+   #rvWrapper {width:50%;height:300px;top:0;right:0;position:absolute;z-index:0;}
+   #container.view_roadview #mapWrapper {width: 50%;}
+   #roadviewControl {position:absolute;top:5px;left:5px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
+   #roadviewControl.active {background-position:0 -350px;}
+   #close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+   #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}   
 </style>
-	
+   
 </head>
 
 <body>
-	
+   
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
 
     <!-- Header Section Begin -->
-  	 <%@include file="../shop/inc/top.jsp" %>
+      <%@include file="../shop/inc/top.jsp" %>
     <!-- Breadcrumb Section Begin -->
 
 
@@ -63,6 +63,7 @@
                             <div class="ci-text">
                                 <span>Phone:</span>
                                 <p>010.3377.7086</p>
+                                <p>010.2836.9994</p>
                             </div>
                         </div>
                         <div class="cw-item">
@@ -101,8 +102,8 @@
         </div>
     </section>
     <!-- Contact Section End -->
-	<!-- Map Section Begin -->
- 	<div id="container">
+   <!-- Map Section Begin -->
+    <div id="container">
     <div id="rvWrapper">
         <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
         <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
@@ -113,7 +114,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4a52b52a8e6b5ddabdda425acd948507"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0c677e45f27e475b49c5ef6cea13cf67"></script>
 <script>
 var overlayOn = false, // 지도 위에 로드뷰 오버레이가 추가된 상태를 가지고 있을 변수
     container = document.getElementById('container'), // 지도와 로드뷰를 감싸고 있는 div 입니다
@@ -167,12 +168,12 @@ var markImage = new kakao.maps.MarkerImage(
     }
 );
 
-	var markerPosition  = new kakao.maps.LatLng(37.38553124574045, 127.12473567432899); 
+   var markerPosition  = new kakao.maps.LatLng(37.38553124574045, 127.12473567432899); 
 
-	//마커를 생성합니다
-	var marker = new kakao.maps.Marker({
- 	position: markerPosition
-	});
+   //마커를 생성합니다
+   var marker = new kakao.maps.Marker({
+    position: markerPosition
+   });
 
 //마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
@@ -314,7 +315,7 @@ function closeRoadview() {
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-	<%@ include file="../shop/inc/footerscript.jsp" %>
+   <%@ include file="../shop/inc/footerscript.jsp" %>
 </body>
 
 </html>

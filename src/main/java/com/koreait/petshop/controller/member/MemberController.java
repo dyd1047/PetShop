@@ -45,6 +45,15 @@ public class MemberController {
    @Autowired
    private SecureManager secureManager;
    
+   //마이페이지 폼 요청
+   @RequestMapping(value="/petshop/mypage")
+   public ModelAndView getMypage(HttpServletRequest request) {
+	   ModelAndView mav = new ModelAndView();
+	   mav.setViewName("shop/member/mypage");
+	   
+	   return mav;
+   }
+   
    //클라이언트 회원가입 폼 요청
    @RequestMapping(value="/petshop/register")
    public ModelAndView getClientRegister(HttpServletRequest request) {
@@ -63,13 +72,24 @@ public class MemberController {
       return mav;
    }
    
-   //아이디 중복 체크
+   //회원아이디 중복 체크
    @RequestMapping(value = "/user/idCheck", method = RequestMethod.GET)
    @ResponseBody
    public int idCheck(@RequestParam(value="user_id") String user_id, HttpServletRequest request) {
       //logger.debug(user_id);
 
       return memberService.userIdCheck(user_id);
+   }
+   
+   //관리자아이디 중복 체크
+   @RequestMapping(value = "/admin/idCheck", method = RequestMethod.GET)
+   @ResponseBody
+   public int adminIdCheck(@RequestParam(value="user_id") String user_id, HttpServletRequest request) {
+	   logger.debug(user_id);
+	   int result = adminService.userIdCheck(user_id);
+	   logger.debug("result = "+result);
+	   
+	   return result;
    }
    
    //클라이언트 회원가입 요청 처리 
@@ -142,14 +162,14 @@ public class MemberController {
               admin_obj = memberType.getAdmin().get(i);
               if(admin_obj.getUser_id().equals(admin.getUser_id())) {
                  logger.debug("admin Id OK");
-                // String hash = secureManager.getSecureData(admin.getPassword());
-                 //admin.setPassword(hash); //VO에 해쉬값 대입
+                String hash = secureManager.getSecureData(admin.getPassword());
+                admin.setPassword(hash); //VO에 해쉬값 대입
                  if(admin_obj.getPassword().equals(admin.getPassword())) {
                     logger.debug("admin Pass OK");
                     session.setAttribute("admin", admin_obj); //현재 클라이언트 요청과 연계된 세션에 보관해 놓는다
                     loginCheck = true;
                     
-                    mav.setViewName("redirect:/admin");
+                    mav.setViewName("redirect:/");
                  }
               }
            }

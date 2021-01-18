@@ -297,7 +297,6 @@ function regist(){
      </select>
     <input type="text" name="product_name" placeholder="상품명">
     <input type="text" name="price" placeholder="가격">
-    <input type="text" name="brand" placeholder="브랜드">
    <!-- 파일 최대 4개까지 지원 -->
    <p>대표이미지: <input type="file"  name="repImg"></p>
    

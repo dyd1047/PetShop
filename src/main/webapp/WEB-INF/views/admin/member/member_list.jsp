@@ -84,7 +84,7 @@ tr:nth-child(even) {
       </tr>
       <%}%>
       <tr>
-      <td colspan="6" style="text-align:center">
+      <td colspan="7" style="text-align:center">
 
    <%if((pager.getFirstPage()-1)>=1){   //페이지가 있다면%> 
       <a href="/petshop/member/list?currentPage=<%=pager.getFirstPage()-1%>">◀</a>

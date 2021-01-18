@@ -54,9 +54,20 @@
 	<!-- 상위 카테고리를 가져오는 공통코드 적용 AOP -->
 	<beans:bean id="globalDataAspect"
 		class="com.koreait.petshop.aop.GlobalDataAspect" />
+	<beans:bean id="memberSessionCheckAspect"
+		class="com.koreait.petshop.aop.MemberSessionCheckAspect" />
 
 	<!-- aop 설정 -->
 	<aop:config>
+		<aop:aspect id="sessionCheckAspect"
+			ref="memberSessionCheckAspect">
+			<aop:pointcut
+				expression="execution(public * com.koreait.petshop.controller.payment..*(..))"
+				id="sessionPointcut" />
+			<aop:around method="sessionCheck"
+				pointcut-ref="sessionPointcut" />
+		</aop:aspect>
+
 		<aop:aspect id="categoryAspect" ref="globalDataAspect">
 			<aop:pointcut
 				expression="execution(public * com.koreait.petshop.controller..*(..))"

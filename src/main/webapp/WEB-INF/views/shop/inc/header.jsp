@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+	<title>Pettopia</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/resources/img/favicon2.png">
+    <link rel="icon" href="/resources/img/favicon2.png">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 

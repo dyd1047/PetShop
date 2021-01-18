@@ -1,3 +1,7 @@
+<%@page import="com.koreait.petshop.model.domain.Admin"%>
+<%@page import="com.koreait.petshop.model.domain.Member"%>
+<%@page import="com.koreait.petshop.model.common.Formatter"%>
+<%@page import="com.koreait.petshop.model.domain.Cart"%>
 <%@page import="com.koreait.petshop.model.domain.SubCategory"%>
 <%@page import="com.koreait.petshop.model.domain.TopCategory"%>
 <%@page import="java.util.List"%>
@@ -5,9 +9,12 @@
 <%
 	List<TopCategory> topList = (List)request.getAttribute("topList");
 	String topcategory_id = "";
+	List<Cart> cartList = (List)request.getAttribute("cartList");
 	if(request.getParameter("topcategory_id") != null){
 		topcategory_id = request.getParameter("topcategory_id");
 	}
+	Member members = (Member)request.getAttribute("member");
+	Admin admin = (Admin)request.getAttribute("admin");
 %>
 <style>
 #logo3{
@@ -16,6 +23,18 @@
 }
 </style>
 <script type="text/javascript">
+function delCart(cart_id){
+	if(confirm("장바구니에서 상품을 제거하시겠습니까?")){
+		console.log("cart_id = "+cart_id);
+		$.ajax({
+			url:"/async/shop/cart/delete?cart_id="+cart_id,
+			type:"get",
+			success:function(responseData){
+				location.href="/shop/cart/list";
+			}
+		});			
+	}	
+}
 </script>
  <header class="header-section">
         <div class="header-top">
@@ -43,69 +62,68 @@
         <div class="container">
             <div class="inner-header">
                 <div class="row">
-                     <div class="col-lg-12 col-md-9">
-                        <div class="logo">
-                            <a href="/">
-                                <img src="/resources/img/logo2.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-                   
                     <div class="col-lg-12 text-right col-md-3">
                         <ul class="nav-right">
-                            <li class="heart-icon">
-                                <a href="#">
-                                    <i class="icon_heart_alt"></i>
-                                    <span>1</span>
-                                </a>
+                      		<li class="cart-icon">
+	                            <a href="/">
+	                                <img src="/resources/img/topLogo.png" alt="">
+	                            </a>
+                            </li>
+                            <li class="cart-price">
+                               	<%if(members != null){ %>
+	                                <a href="/petshop/mypage" style="color: black;">
+                                    	<span><%=members.getUser_id() %>님</span>
+                             		</a>
+                                <%}else if(admin != null){ %>
+	                                <a href="#" style="color: black;">
+                                    	<span><%=admin.getUser_id() %>관리자님</span>
+                             		</a>
+                                <%}else{ %>
+                                	<a href="/petshop/login" style="color: black;">
+                                    	<span>로그인</span>
+                                	</a>
+                                <%} %>
                             </li>
                             <li class="cart-icon">
-                                <a href="#">
+                                <a href="/shop/cart/list">
                                     <i class="icon_bag_alt"></i>
-                                    <span>3</span>
+                                    <%if(cartList.size() > 0){ %>
+                                    	<span><%=cartList.size() %></span>
+                                    <%} %>
                                 </a>
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
                                             <tbody>
-                                                <tr>
-                                                    <td class="si-pic"><img src="/resources/img/select-product-1.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="si-pic"><img src="/resources/img/select-product-2.jpg" alt=""></td>
-                                                    <td class="si-text">
-                                                        <div class="product-selected">
-                                                            <p>$60.00 x 1</p>
-                                                            <h6>Kabino Bedside Table</h6>
-                                                        </div>
-                                                    </td>
-                                                    <td class="si-close">
-                                                        <i class="ti-close"></i>
-                                                    </td>
-                                                </tr>
+                                            	<%int sum = 0; %>
+				                            	<%for(Cart cart : cartList){ %>
+				                                <%int total =  cart.getPrice()*cart.getQuantity();%>
+				                            	<%sum += total; %>
+	                                                <tr>
+	                                                    <td class="si-pic"><img src="/resources/pro/basic/<%=cart.getProduct_id()%>.<%=cart.getFilename()%>" alt=""></td>
+	                                                    <td class="si-text">
+	                                                        <div class="product-selected">
+	                                                            <p><%=Formatter.getCurrency(cart.getPrice()) %> x <%=cart.getQuantity()%></p>
+	                                                            <h6><%=cart.getProduct_name() %></h6>
+	                                                        </div>
+	                                                    </td>
+	                                                    <td class="si-close">
+	                                                        <i class="ti-close" onclick="delCart(<%=cart.getCart_id()%>)"></i>
+	                                                    </td>
+	                                                </tr>
+                                                <%} %>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>$120.00</h5>
+                                        <h5><%=Formatter.getCurrency(sum) %></h5>
                                     </div>
                                     <div class="select-button">
-                                        <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        <a href="/shop/cart/list" class="primary-btn view-card">VIEW CARD</a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="cart-price">$150.00</li>
                         </ul>
                     </div>
                 </div>
@@ -149,7 +167,8 @@
                                 <%}else{ %>
                                    <li><a href="/petshop/logoutRequest">LogOut</a></li>
                                    <%if(session.getAttribute("admin")==null) {%>
-                                   	<li><a href="/petshop/logoutRequest">Cart</a></li>
+                                   	<li><a href="/shop/cart/list">Cart</a></li>
+	                                <li><a href="/petshop/mypage">Mypage</a></li>
                                    <%} %>
                                 <%} %>
                             </ul>

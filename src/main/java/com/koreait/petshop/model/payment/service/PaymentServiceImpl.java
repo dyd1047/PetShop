@@ -65,9 +65,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public void delete(Cart cart) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int cart_id) {
+		cartDAO.delete(cart_id);
 	}
 
 	public void delete(Member member) throws CartException{

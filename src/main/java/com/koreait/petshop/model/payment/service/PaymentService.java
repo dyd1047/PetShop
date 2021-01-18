@@ -15,7 +15,7 @@ public interface PaymentService {
 	public Cart selectCart(int cart_id);
 	public void insert(Cart cart);
 	public void update(List<Cart> cartList); //?¼ê´? ?ˆ˜? •
-	public void delete(Cart cart); //pk?— ?†?•œ ?°?´?„° ?‚­? œ?• ?˜ˆ? •
+	public void delete(int cart_id); //pk?— ?†?•œ ?°?´?„° ?‚­? œ?• ?˜ˆ? •
 	public void delete(Member member); //?šŒ?›?— ?†?•œ ?°?´?„° ?‚­? œ?• ?˜ˆ? •
 	
 	//ê²°ì œ ?—…ë¬?

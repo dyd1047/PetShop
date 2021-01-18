@@ -8,7 +8,6 @@
     <meta name="keywords" content="Fashi, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Fashi | Template</title>
 
     <%@ include file="../inc/header.jsp" %>
     <style>
@@ -290,7 +289,7 @@
             var json = JSON.parse(responseData);
             if(json.result == 1){
                alert(json.msg);
-               location.href="/petshop"; //추후 로그인 페이지로 보낼예정
+               location.href="/"; //추후 로그인 페이지로 보낼예정
             }else{
                alert(json.msg);
             }

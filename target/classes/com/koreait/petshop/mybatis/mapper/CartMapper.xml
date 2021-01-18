@@ -21,7 +21,6 @@
 		<result column="quantity" 			property="quantity"/>
 		<result column="product_name" 	property="product_name"/>
 		<result column="price" 					property="price"/>
-		<result column="brand" 				property="brand"/>
 		<result column="detail" 				property="detail"/>
 		<result column="filename" 			property="filename"/>
 		<association 
@@ -33,14 +32,19 @@
 	
 	<select id="selectAll" parameterType="int" resultMap="joinSubCategory">
 		select cart_id, c.product_id as product_id, member_id, quantity
-		, subcategory_id , product_name, price, brand, detail, filename
+		, subcategory_id , product_name, price, detail, filename
 		from cart c, product p 
 		where  c.product_id=p.product_id and member_id=#{member_id}
 	</select>	
 	
 	<!-- 장바구니 비우기 -->
-	<delete id="delete" parameterType="int">
+	<delete id="deleteAll" parameterType="int">
 		delete from cart where member_id=#{member_id}
+	</delete>
+	
+	<!-- 장바구니 1건 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from cart where cart_id=#{cart_id}
 	</delete>
 	
 	<!-- 장바구니 수량 수정  -->

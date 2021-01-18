@@ -15,9 +15,8 @@ public class MybatisReceiverDAO implements ReceiverDAO{
 	@Override
 	public void insert(Receiver receiver) throws ReceiverRegistException{
 		int result = sqlSessionTemplate.insert("Receiver.insert", receiver);
-		result=0; 
 		if(result==0) {
-			throw new ReceiverRegistException("諛쏅뒗?궗?엺 ?벑濡앹떎?뙣");
+			throw new ReceiverRegistException("받는사람 등록실패");
 		}
 	}
 	

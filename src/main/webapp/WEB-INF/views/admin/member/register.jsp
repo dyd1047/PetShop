@@ -60,12 +60,6 @@
       var idFlag;
       var passFlag;
       var conPassFlag;
-      var emailIdFlag;
-      var emailServerFlag;
-      var nameFlag;
-      var phoneFlag;
-      var zipCodeFlag;
-      var addrFlag;
       
    $(function(){
       $("#emp_id").blur(function() {
@@ -99,7 +93,7 @@
    });
    
    function registCheck(){
-      if(empIdCheck && idFlag && passFlag && conPassFlag){
+      if(empIdFlag && idFlag && passFlag && conPassFlag){
          return true;
       }else{
          alert("양식을 확인해 주세요.");
@@ -117,7 +111,7 @@
       var user_id = $("#user_id").val();
       console.log(user_id);
       $.ajax({
-         url : "/user/idCheck?user_id="+user_id,
+         url : "/admin/idCheck?user_id="+user_id,
          type : "get",
          success : function(responseData) {
             console.log("1 = 중복o / 0 = 중복x : "+ responseData);                     
@@ -265,7 +259,7 @@
             var json = JSON.parse(responseData);
             if(json.result == 1){
                alert(json.msg);
-               location.href="/admin"; //추후 로그인 페이지로 보낼예정
+               location.href="/"; //추후 로그인 페이지로 보낼예정
             }else{
                alert(json.msg);
             }
