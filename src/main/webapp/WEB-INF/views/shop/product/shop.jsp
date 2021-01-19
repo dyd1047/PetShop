@@ -89,14 +89,16 @@
 	                	<%for(TopCategory topCategory : topList) {%>
 	                		<%if(subCategory_id==null) {%>
 		                		<%if(topCategory.getTopcategory_id() == Integer.parseInt(topCategory_id)){ %>
-		                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a><span style="color:red;">V</span></li>
+		                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a>
+		                       			<span style="color:red;">V</span></li>
 			                    <%}else{ %>
 		                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a></li>
 			                    <%} %>
 		                    <%}else{ %>
 		                    	<%for(SubCategory subCategory : subList){ %>
 			                		<%if(topCategory.getTopcategory_id() == subCategory.getTopcategory_id()){ %>
-			                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a><span style="color:red;">V</span></li>
+			                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a>
+			                       			<span style="color:red;">V</span></li>
 				                    <%}else{ %>
 			                       		<li style="border-bottom: 1px solid #EEEEEE; "><a id="top_getProduct" href="/shop/product/topList?topcategory_id=<%=topCategory.getTopcategory_id()%>"><%=topCategory.getName() %></a></li>
 				                    <%} %>

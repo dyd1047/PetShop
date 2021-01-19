@@ -156,6 +156,7 @@ public class MemberController {
      Member member_obj = null;
      boolean loginCheck = false;
      
+     //관리자 로그인 요청
      for(MemberType memberType : memberTypeList) {
         if(memberType.getMember_type_id() == 1) {
            for(int i = 0; i < memberType.getAdmin().size(); i++) {
@@ -173,6 +174,7 @@ public class MemberController {
                  }
               }
            }
+        //고객 로그인 요청
         }else if(memberType.getMember_type_id() == 2) {
            for(int i = 0; i < memberType.getMember().size(); i++) {
               member_obj = memberType.getMember().get(i);

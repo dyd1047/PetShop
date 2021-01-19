@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<%@ include file="../inc/header.jsp" %>
 	<script>
+	//장바구니 1건 삭제
 	function delCart(cart_id){
 		if(confirm("장바구니에서 상품을 제거하시겠습니까?")){
 			console.log("cart_id = "+cart_id);
@@ -27,9 +28,10 @@
 			});			
 		}	
 	}
-	
+
+	//장바구니 수정
 	function editCart(){
-		var formData=$("#cart_form").serialize();//파라미터를 전송할 수 있는 상태의 문자열로 나열해줌
+		var formData=$("#cart_form").serialize();
 		console.log("cart_id = "+formData.cart_id);
 		if(confirm("주문 수량을 변경하시겠어요?")){
 			$.ajax({
